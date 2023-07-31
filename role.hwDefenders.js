@@ -17,7 +17,7 @@ var roleHWDefenders = {
             //console.log('#########################################################################'+roleHWDefenders.createSquad('E45N28', 'E45N26'));
         }
         if (Game.shard.name == 'shard2') {
-            //console.log('#########################################################################'+roleHWDefenders.createSquad('E57N25', 'E55N24'));
+            console.log('#########################################################################'+roleHWDefenders.createSquad('E57N25', 'E56N25'));
              //console.log('#########################################################################'+roleHWDefenders.createSquad('E55N27', 'E55N24'));
             // console.log('#########################################################################'+roleHWDefenders.createSquad('E42N28', 'E44N26')); 
             //console.log('#########################################################################'+roleHWDefenders.createSquad('E52N32', 'E54N35'));
