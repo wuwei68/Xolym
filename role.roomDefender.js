@@ -383,16 +383,36 @@ var roleRoomDefender = {
             }
         });
 
+        try {
+            sortedHostiles = sortedHostiles.filter(h => !this.positionInNearBorder(h.hostile));
+        } catch (e) {}
+        
+        
         if (sortedHostiles.length) {
             let target = sortedHostiles[0].hostile;
             room.visual.circle(target.pos, {fill: 'transparent', radius: 0.55, stroke: 'red'});
             if ((sortedHostiles[0].actualTowerDmg - sortedHostiles[0].potentialRecovery) > 0) {
                 towers.forEach((tower)=> tower.attack(target));
+                room.memory.towerAttackedTime = Game.time;
                 return 1;
             }
         }
         return 0;
     },
+    
+    positionInBorder: function(target){
+        let pos = target.pos?target.pos:target;
+        return (pos.x < 1 || pos.x >48 || pos.y < 1 || pos.y > 48);
+    },
+    positionInNearBorder: function(target){
+        let pos = target.pos?target.pos:target;
+        return (pos.x < 2 || pos.x >47 || pos.y < 2 || pos.y > 47);
+    },
+    positionInNearBorder2: function(target){
+        let pos = target.pos?target.pos:target;
+        return (pos.x < 3 || pos.x >46 || pos.y < 3 || pos.y > 46);
+    },
+
 
     defendRoom: function(roomName) {
 
@@ -503,7 +523,7 @@ var roleRoomDefender = {
 
 
 
-                if (room.memory.defendRoomMode == 2) {
+                if (1 || room.memory.defendRoomMode == 2) {
                     //antidrain
                     if (!towersAtacked && this.smartTowersAttack(room, towers)) {
                         towersAtacked = true;

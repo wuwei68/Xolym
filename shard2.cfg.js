@@ -679,6 +679,8 @@ var shardCfg = {
         'E33N9':  {sector:22, powerRooms: ['E31N10','E32N10','E33N10','E34N10','E35N10',]},
         'E59N53': {sector:23, powerRooms: ['E60N55','E60N54','E60N53','E60N52','E60N51','E60N50','E59N50','E58N50',]},
         'E47S1':  {sector:24, powerRooms: ['E43S0','E44S0','E45S0','E46S0','E47S0','E48S0','E49S0','E50S0','E43N0','E44N0','E45N0','E46N0','E47N0','E48N0','E49N0','E50N0',]},
+        'E47N39': {sector:25, powerRooms: ['E44N40','E45N40','E46N40','E47N40','E48N40','E49N40','E50N40',]},
+        'E41N39': {sector:26, powerRooms: ['E40N37','E40N38','E40N39','E40N40','E38N40','E38N40','E39N40','E40N40','E41N40','E42N40','E43N40','E40N41',]},
     },
     teamAssaults: [
         {id: 0, creeps: {dismantler: 0, assault:0, defender:0, healer: 0, transporter: 0, transporter2: 0 }, place: {room: "E58N22", posx: 45, posy: 42}},
@@ -755,9 +757,9 @@ var shardCfg = {
         'E47N36': {[RESOURCE_GHODIUM_OXIDE]: {conditionsOr: [{res: RESOURCE_GHODIUM_OXIDE, amount: 10000}, {res: RESOURCE_GHODIUM, amount: 10000}, ], maxPrice: 3.101, buyAmount: 15000},},
         'E45N29': {[RESOURCE_CATALYST]: {conditionsOr: [{res: RESOURCE_CATALYST, amount: 400000}, ], maxPrice: 43.901, buyAmount: 10000},}, 
         'E46N31': {[RESOURCE_GHODIUM]: {conditionsOr: [{res: RESOURCE_GHODIUM, amount: 15000}, ], maxPrice: 20.999, buyAmount: 5000},}, 
-        'E55N27': {[RESOURCE_POWER]: {conditionsOr: [{res: RESOURCE_POWER, amount: 60000}], maxPrice: 905.950, buyAmount: 9000},},  //42.950 
+        'E55N27': {[RESOURCE_POWER]: {conditionsOr: [{res: RESOURCE_POWER, amount: 900000}], maxPrice: 355.950, buyAmount: 20000},},  //42.950 
         'E49N22': {[RESOURCE_UTRIUM]: {conditionsOr: [{res: RESOURCE_UTRIUM, amount: 200000}, ], maxPrice: 45.101, buyAmount: 30000},},
-        'E55N21': {[RESOURCE_OXYGEN]: {conditionsOr: [{res: RESOURCE_OXYGEN, amount: 200000}, ], maxPrice: 65.101, buyAmount: 30000},},
+        'E55N21': {[RESOURCE_OXYGEN]: {conditionsOr: [{res: RESOURCE_OXYGEN, amount: 200000}, ], maxPrice: 75.101, buyAmount: 30000},},
         'E55N31': {[RESOURCE_ZYNTHIUM]: {conditionsOr: [{res: RESOURCE_ZYNTHIUM, amount: 200000}], maxPrice: 95.150, buyAmount: 30000},},
         'E42N28': {
             [RESOURCE_OPS]: {conditionsOr: [{res: RESOURCE_OPS, amount: 20000}], maxPrice: 20.250, buyAmount: 10000},

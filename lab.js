@@ -156,13 +156,14 @@ module.exports = {
         if (roomsAvaiable.length >= 4) needAmount = 50000;
         if (roomsAvaiable.length >= 10) needAmount = 80000;
         if (roomsAvaiable.length >= 20) needAmount = 150000;
-        if (roomsAvaiable.length >= 30) needAmount = 500000;
+        if (roomsAvaiable.length >= 30) needAmount = 800000;
        
         if (0 && Game.shard.name == 'shard2') {
             resourceInfo = {
-                [RESOURCE_CATALYZED_KEANIUM_ALKALIDE]: {}
+                [RESOURCE_CATALYZED_GHODIUM_ALKALIDE]: {},
+                [RESOURCE_CATALYZED_KEANIUM_ALKALIDE]: {},
             }
-            needAmount = 500000;
+            needAmount = 900000;
         }
          
         

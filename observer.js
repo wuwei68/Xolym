@@ -5,7 +5,8 @@ var Traveler = require('Traveler');
 
 module.exports = {
     playersNotify: ['liaohuo'],
-    playersBlackList: ['lolaner','Shibdib','Mitsuyoshi','Hi_Melnikov','liaohuo','Jason_2070','tinnvec','Allorrian','DefaultO','Phi','FigTree','blue123','Aerics','explicit','Morningtea','whisky_jb','Ankleton','ykrop142'],
+    // hello somygame! How are you?
+    playersBlackList: ['lolaner','Shibdib','Mitsuyoshi','Hi_Melnikov','liaohuo','Jason_2070','tinnvec','Allorrian','DefaultO','Phi','FigTree','blue123','Aerics','explicit','Morningtea_','whisky_jb','Ankleton','ykrop142','somygame','songyiayng'],
     
     getRoomNameFromDeltaCoord: function(dx, dy, roomName) {
         if (dx == undefined || dy == undefined || !roomName) {

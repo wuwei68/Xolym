@@ -6,8 +6,8 @@ var marketHelper = require('market');
 var roleGclBooster = {
     roomConfig: {
         'E43N38': {
-            upgraderCount: 1,//7,
-            stopReClaim: 1,
+            upgraderCount: 7,//7,
+            stopReClaim: 0,
             cranePos: [44,23],
             renewPos: [43,23],
             predRenewPos: [44,22],
@@ -51,9 +51,10 @@ var roleGclBooster = {
         return [MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY];
     },
     getGclUpgraderBody: function(roomName) {
-        // return [MOVE,MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY]; // MOVE*2,WORK*19,CARRY*4 2.20K
-        return [MOVE,MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY];
-        //return [MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY]; //MOVE*1,WORK*45,CARRY*4
+        //return [MOVE,MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY]; // MOVE*2,WORK*19,CARRY*4 2.20K
+         //return [MOVE,MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY]; // MOVE*2,WORK*19,CARRY*4 2.20K
+        //return [MOVE,MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY];
+        return [MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY]; //MOVE*1,WORK*45,CARRY*4
     },
     getGclUpgraderCount: function(roomName) {
         const roomConfig = roleGclBooster.roomConfig[roomName];
@@ -126,7 +127,7 @@ var roleGclBooster = {
                         Memory.stopPowerProcess = 1;
                     } else {
                         if (!(Game.time%100)) {
-                            if (_.get(Memory, 'stock.energy', '0') < 19000000) {
+                            if (_.get(Memory, 'stock.energy', '0') < 10000000) {
                                 Memory.stopPowerProcess = 1;
                             } else {
                                 Memory.stopPowerProcess = undefined;
@@ -163,6 +164,14 @@ var roleGclBooster = {
                 creep.withdraw(container, RESOURCE_ENERGY);
             }
             if (creep.pos.isEqualTo(roomConfig.renewPos[0],roomConfig.renewPos[1])) {
+                if (this.boostGclUpgrader == undefined || !(Game.time%100)) {
+                    this.boostGclUpgrader = _.get(Memory, 'stock.XGH2O',0) > ((new Date()) >= (new Date('2023-12-01')) ? 800000 : 8000000); //1100000;
+                    //console.log('boostGclUpgrader is ', this.boostGclUpgrader?'On':'Off');
+                    if (creep.room.memory.stopGclUprade) {
+                        this.boostGclUpgrader = false;
+                    }
+                }
+
                 if (creep.memory.boosted && creep.ticksToLive > 155 /*151*/){
                 
                 } else if (creep.ticksToLive <= 1500-11) {
@@ -173,13 +182,6 @@ var roleGclBooster = {
                     }
                 } else {
                     const lab = Game.getObjectById(roomConfig.lab);
-                    if (this.boostGclUpgrader == undefined || !(Game.time%100)) {
-                        this.boostGclUpgrader = _.get(Memory, 'stock.XGH2O',0) > ((new Date()) >= (new Date('2022-11-01')) ? 300000 : 8000000); //1100000;
-                        //console.log('boostGclUpgrader is ', this.boostGclUpgrader?'On':'Off');
-                        if (creep.room.memory.stopGclUprade) {
-                            this.boostGclUpgrader = false;
-                        }
-                    }
                     
                     if ((this.boostGclUpgrader || creep.room.memory.reClaimRoom) && lab 
                     && lab.store[RESOURCE_CATALYZED_GHODIUM_ACID] >= creep.getActiveBodyparts(WORK)* LAB_BOOST_MINERAL 
@@ -199,7 +201,7 @@ var roleGclBooster = {
         // } 
         
         if (!(Game.time%30)) {
-            creep.room.memory.stopGclUprade = ((new Date()) >= (new Date('2022-11-01')))?0:1;
+            creep.room.memory.stopGclUprade = ((new Date()) >= (new Date('2023-12-01')))?0:1;
         }
 
         
@@ -237,7 +239,7 @@ var roleGclBooster = {
         const terminal = creep.room.controller.level >=6 ? creep.room.terminal : null;
         if (!container || !spawn || !storage) return;
         
-        if (!(Game.time%10) && terminal && storage.store[RESOURCE_ENERGY] < 4900000 && storage.store.getFreeCapacity()>70000) {
+        if (!(Game.time%10) && terminal && ((storage.store[RESOURCE_ENERGY] < 4900000 && storage.store.getFreeCapacity()>70000) || terminal.store[RESOURCE_ENERGY] < 120000)) {
             marketHelper.buyOrder(creep.room, RESOURCE_ENERGY, 100000);
         }
         
@@ -282,7 +284,7 @@ var roleGclBooster = {
         if (renewDropped.length){
             creep.pickup(renewDropped[0]);
         }
-        const renewCreeps = renewPos.lookFor(LOOK_CREEPS);
+        const renewCreeps = renewPos.lookFor(LOOK_CREEPS).filter(c=>c.memory.role == 'gclUpgrader');
         if (creep.memory.pauseRotate) {
             creep.memory.pauseRotate --;
             creep.say(creep.memory.pauseRotate);

@@ -64,7 +64,7 @@ var roleWallBuilder = {
             if (!room.memory.wallbuilderInfo.pause) {
                 // do pause
                 let dtime = 0;
-                if (room.memory.rampartsHP > 100000000) {
+                if (room.memory.rampartsHP > 150000000) {
                     dtime = 6000 + Math.floor(Math.random() * 1000);
                 } else if (room.memory.rampartsHP > 60000000) {
                     dtime = 3000 + Math.floor(Math.random() * 500);

@@ -21,6 +21,10 @@ var roleClaim = {
                     // let creepLive = _.filter(require('spawn').getGameCreeps(room.name), (creep) => creep.memory.role == 'claim' && creep.memory.targetRoomName == claimRoom && (creep.ticksToLive > 10 || creep.spawning));
                     // let needSpawn = creepLive.length <= 0;
                     
+                    if (freeSpawn && freeSpawn.room && freeSpawn.room.memory.defendRoomMode) {
+                        continue;
+                    }
+                    
                     let needSpawn = require('spawn').creepLiveCustomCheck(room.name, room.name+'_claim_'+claimRoom, 1,
                         creep => creep.memory.role == 'claim' && creep.memory.targetRoomName == claimRoom && (creep.ticksToLive > 10 || creep.spawning),
                         'claim'

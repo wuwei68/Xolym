@@ -1664,7 +1664,7 @@ checkNuke: function(roomName) {
 },
                         
 ownerNotInWhiteList: function(owner){
-    const whiteList = ['Darking_','avp2501','TANEdos'];
+    const whiteList = ['Darking_','avp2501','TANEdos','claptan'];
     let success = true;
     whiteList.forEach(user=>{
         if (owner == user) {

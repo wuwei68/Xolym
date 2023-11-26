@@ -82,21 +82,21 @@ var roleInter = {
                 //         //  {res: RESOURCE_MACHINE, amount: 300},
                 //          {res: RESOURCE_DEVICE, amount: 600},
                 //         {res: RESOURCE_ENERGY, amount: 5000},],
-                //     interval: 25000,
+                //     interval: 250000000,
                 //     minLive: 25000,
-                //     // body: [CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,],
-                //     body: [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,MOVE,
-                //     CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
-                //     MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
-                //     CARRY,CARRY,CARRY,CARRY,
-                //     HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,
-                //     MOVE,
-                //     HEAL,
-                //     ],
-                //     boosts: [RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE,RESOURCE_CATALYZED_GHODIUM_ALKALIDE, RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE],
+                //     body: [CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,],
+                //     // body: [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,MOVE,
+                //     // CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
+                //     // MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
+                //     // CARRY,CARRY,CARRY,CARRY,
+                //     // HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,
+                //     // MOVE,
+                //     // HEAL,
+                //     // ],
+                //     // boosts: [RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE,RESOURCE_CATALYZED_GHODIUM_ALKALIDE, RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE],
                 // },
                  { //Memory.rooms.E42N28.delivery_shard3_E42N31_time = 1; 
-                 //Memory.creeps.intx49139400.resources[0].amount = 200
+                 //Memory.creeps.intx49139400.resources[0].amount = 300
                     destShard: 'shard3',
                     destRoom: 'E42N31',
                     flag: 'inter',
@@ -108,7 +108,7 @@ var roleInter = {
                         {res: RESOURCE_ENERGY, amount: 5000},],
                     interval: 300,//1500,
                     minLive: 400,
-                    body: [CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,],
+                    body: [CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,CARRY,MOVE,],
                     // body: [TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,MOVE,
                     // CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,
                     // MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,
@@ -143,29 +143,29 @@ var roleInter = {
             // ],
             'E41N39': [ //Memory.rooms.E41N39.delivery_shard1_E41N38_time = 1;
             //Game.rooms.E42N28.terminal.send(RESOURCE_DEVICE, 600, 'E41N39');
-            //Memory.creeps.intx49528430.resources[0] = {res:RESOURCE_DEVICE, amount:400, c:1};
-            //Memory.creeps.intx49528430.priorityByStock = undefined;
+            //Memory.creeps.intx50354620.resources[0] = {res:RESOURCE_DEVICE, amount:400, c:1};
+            //Memory.creeps.intx50354620.priorityByStock = undefined;
                 {
                     destShard: 'shard1',
                     destRoom: 'E41N38',
                     flag: 'inter_tos1s1',
                     conditionsAnd: [
-                        {res: RESOURCE_ZYNTHIUM, amount: 300000},
-                        {res: RESOURCE_LEMERGIUM,amount: 300000},
-                        {res: RESOURCE_OXYGEN,   amount: 300000},
-                        {res: RESOURCE_HYDROGEN, amount: 300000},
-                        {res: RESOURCE_CATALYST, amount: 300000},
-                        {res: RESOURCE_KEANIUM,  amount: 300000},
-                        {res: RESOURCE_UTRIUM,   amount: 300000},
+                        {res: RESOURCE_ZYNTHIUM, amount: 500000},
+                        {res: RESOURCE_LEMERGIUM,amount: 500000},
+                        {res: RESOURCE_OXYGEN,   amount: 500000},
+                        {res: RESOURCE_HYDROGEN, amount: 500000},
+                        {res: RESOURCE_CATALYST, amount: 500000},
+                        {res: RESOURCE_KEANIUM,  amount: 500000},
+                        {res: RESOURCE_UTRIUM,   amount: 500000},
                     ],
                     remoteResourceAmount: [
-                        {res: RESOURCE_ZYNTHIUM, amount: 9000, maxLocalAmount: 300000},
-                        {res: RESOURCE_LEMERGIUM,amount: 9000, maxLocalAmount: 300000},
-                        {res: RESOURCE_OXYGEN,   amount: 9000, maxLocalAmount: 300000},
-                        {res: RESOURCE_HYDROGEN, amount: 9000, maxLocalAmount: 300000},
-                        {res: RESOURCE_CATALYST, amount: 9000, maxLocalAmount: 300000},
-                        {res: RESOURCE_KEANIUM,  amount: 9000, maxLocalAmount: 300000},
-                        {res: RESOURCE_UTRIUM,   amount: 9000, maxLocalAmount: 300000},
+                        {res: RESOURCE_ZYNTHIUM, amount: 9000, maxLocalAmount: 500000},
+                        {res: RESOURCE_LEMERGIUM,amount: 9000, maxLocalAmount: 500000},
+                        {res: RESOURCE_OXYGEN,   amount: 9000, maxLocalAmount: 500000},
+                        {res: RESOURCE_HYDROGEN, amount: 9000, maxLocalAmount: 500000},
+                        {res: RESOURCE_CATALYST, amount: 9000, maxLocalAmount: 500000},
+                        {res: RESOURCE_KEANIUM,  amount: 9000, maxLocalAmount: 500000},
+                        {res: RESOURCE_UTRIUM,   amount: 9000, maxLocalAmount: 500000},
                     ],
                     priorityByStock: [RESOURCE_ZYNTHIUM, RESOURCE_LEMERGIUM, RESOURCE_OXYGEN, RESOURCE_HYDROGEN, RESOURCE_CATALYST, RESOURCE_KEANIUM,RESOURCE_UTRIUM],
                     resources: [
@@ -173,10 +173,10 @@ var roleInter = {
                         {res: RESOURCE_ENERGY, amount: 1}, 
                     ],
                     empty: 1,
-                    interval: 100, //150
+                    interval: 200,//100, //150
                     minLive: 500, 
                     boosts: [],//RESOURCE_CATALYZED_KEANIUM_ACID],
-                },
+                }, 
             ],
             'E41N19': [
                 {
@@ -332,6 +332,10 @@ var roleInter = {
                                     }
                                     let spawnInterval = deliveryInfo.interval;
                                     let isBoostEnable = true;
+                                    
+                                    const STOP_SPAWN_TICKS = 3000;
+                                    const TICKRATE = 4.19;
+                                    
                                     if (!conditionOK && deliveryInfo.remoteResourceAmount && Memory.stock) {
                                         const data = JSON.parse(InterShardMemory.getRemote(deliveryInfo.destShard) || "{}");
                                         if (data && data.stock) {
@@ -351,6 +355,21 @@ var roleInter = {
                                                 isBoostEnable = false;
                                             }
                                         }
+                                        if (data && data.inter_attacked) {
+                                            const stopTime =  Math.round(STOP_SPAWN_TICKS*TICKRATE);
+                                            if ((Date.now() - data.inter_attacked) < 1000*stopTime) {
+                                                conditionOK = true; //stop spawn
+                                                Game.notify('intershard spawn stopped to '+deliveryInfo.destShard+'  '+Math.round((Date.now() - data.inter_attacked)/1000)+' / '+stopTime+' second');
+                                                console.log('intershard spawn stopped to '+deliveryInfo.destShard+'  '+Math.round((Date.now() - data.inter_attacked)/1000)+' / '+stopTime+' second');
+                                            }
+                                        }
+                                    }
+                                    
+                                    if (Memory.inter_attacked && Memory.inter_attacked[room.name] && (Game.time - Memory.inter_attacked[room.name]) < STOP_SPAWN_TICKS) {
+                                        conditionOK = true; //stop spawn
+                                        Game.notify('intershard spawn stopped to '+deliveryInfo.destShard+'  '+Game.time - Memory.inter_attacked[room.name]+' / '+STOP_SPAWN_TICKS+' ticks');
+                                        console.log('intershard spawn stopped to '+deliveryInfo.destShard+'  '+Game.time - Memory.inter_attacked[room.name]+' / '+STOP_SPAWN_TICKS+' ticks');
+                                        
                                     }
                                     
                                     if (!conditionOK && (resources.length > 1 || deliveryInfo.empty)) {
@@ -473,6 +492,56 @@ var roleInter = {
         console.log('Intershard recycle memory ', Game.shard.name, before, '->', after);
     },
     
+    checkAttacked: function(creep) {
+        if (creep.hits === creep.hitsMax) return;
+        if (creep.memory.lastHits && creep.hits >= creep.memory.lastHits) return;
+        creep.memory.lastHits = creep.hits;
+        console.log('Intershard creep attacked in room', helpers.getRoomLink(creep.room.name));
+         // Find all hostile actions against your creeps and structures
+        let eventLog = creep.room.getEventLog();
+        let attackEvents = _.filter(eventLog, {event: EVENT_ATTACK});
+        attackEvents.some(event => {
+            let target = Game.getObjectById(event.data.targetId);
+            if(target && target.my && event.data.attackType != EVENT_ATTACK_TYPE_HIT_BACK) {
+                let enemy = Game.getObjectById(event.objectId);
+                let user = 'Unknown';
+                if (enemy && enemy.owner) {
+                    user = enemy.owner.username;
+                }
+                if (user == 'Screeps') {
+                    return;
+                }
+                
+                if (0 || user == 'somygame') {
+                    Game.notify('Intershard creep attacked in room '+creep.room.name+' by '+user);
+                    console.log('Intershard creep attacked in room', helpers.getRoomLink(creep.room.name), 'by user', user , 'Stop spawn');
+                    
+                    if (Game.shard.name != creep.memory.homeShard){
+                       let data = JSON.parse(InterShardMemory.getLocal() || "{}");
+                       data.inter_attacked = Date.now();        
+                       InterShardMemory.setLocal(JSON.stringify(data));
+                   } else {
+                       if (!Memory.inter_attacked) Memory.inter_attacked = {};
+                       Memory.inter_attacked[creep.memory.homeRoom] = Game.time;
+                   }
+                   
+                   if (!creep.memory.inter_attacked) {
+                       creep.room.find(FIND_MY_CREEPS).forEach(creep => creep.say('😫', 1));
+                   }
+                   creep.memory.inter_attacked = 1;
+                   return true;    
+                } else {
+                    console.log('Intershard creep attacked in room', helpers.getRoomLink(creep.room.name), 'by user', user );
+                }
+            }
+        });
+        
+        
+        
+        
+        
+    },
+    
     run: function(creep) {
         if (creep.spawning) {
             return;
@@ -480,6 +549,8 @@ var roleInter = {
         if (creep.memory.boosts && creep.memory.boosts.length) {
             return;
         }
+        this.checkAttacked(creep);
+        
         this.saveMemory(creep);
         //creep.say(creep.memory.timeIndex+creep.memory.role);
         
@@ -567,7 +638,7 @@ var roleInter = {
                 } else {
                     if (this.deliveryInfo[Game.shard.name] && this.deliveryInfo[Game.shard.name][creep.room.name]) {
                         let deliveryInfo =  _.find(this.deliveryInfo[Game.shard.name][creep.room.name], {'destShard': creep.memory.homeShard, 'destRoom': creep.memory.homeRoom});
-                        if (deliveryInfo && creep.ticksToLive > deliveryInfo.minLive) {
+                        if (deliveryInfo && creep.ticksToLive > deliveryInfo.minLive && !creep.memory.inter_attacked) {
                             let resources = [];
                             deliveryInfo.resources.forEach(resInfo => {
                                 if (resInfo.minStock == undefined || !Memory.stock || !Memory.stock[resInfo.res] || Memory.stock[resInfo.res] > resInfo.minStock) {

@@ -101,7 +101,7 @@ var roleDeposit = {
                     } else if (depositInfo.lastCooldown < 70 && room.energyAvailable > room.energyCapacityAvailable*0.5 && freeSides>=4) {
                         depositTypes['transporter']++;
                     }
-                    
+                     
                     for (let type in depositTypes){
                         let count = depositTypes[type];
                         if (count) {
@@ -167,7 +167,9 @@ var roleDeposit = {
     
     creepSpawnTime: function(spawn) {
         if (spawn && spawn.effects && spawn.effects[0] && spawn.effects[0].power == PWR_OPERATE_SPAWN) {
-            return  CREEP_SPAWN_TIME * POWER_INFO[PWR_OPERATE_SPAWN].effect[spawn.effects[0].level];
+            //let result = CREEP_SPAWN_TIME * POWER_INFO[PWR_OPERATE_SPAWN].effect[spawn.effects[0].level-1];
+            //return isNaN(result)?CREEP_SPAWN_TIME:result;
+            return  CREEP_SPAWN_TIME * POWER_INFO[PWR_OPERATE_SPAWN].effect[spawn.effects[0].level-1];
         } else {
             return  CREEP_SPAWN_TIME;
         }
@@ -675,7 +677,7 @@ var roleDeposit = {
             Memory.massRangers[depoRoomName] = {room:baseRoomName, count: 1, time:Game.time + 12000, boosted: 0, body: [ATTACK,ATTACK,ATTACK,MOVE,MOVE,MOVE,MOVE,ATTACK, ATTACK,MOVE,], escalate: 1};
             Game.notify('send mr tinymelee to defend deposit '+depoRoomName); 
         }
-        if (Game.shard.name == 'shard2' && ['E40N2','E40N3','E40N4','E40N5','E40N6','E40N7','E40N8',].includes(depoRoomName)) {
+        if (0 && Game.shard.name == 'shard2' && ['E40N2','E40N3','E40N4','E40N5','E40N6','E40N7','E40N8',].includes(depoRoomName)) {
             Memory.massRangers[depoRoomName] = {room:baseRoomName, count: 1, time:Game.time + 8000, boosted: 0, escalate: 1};
             Game.notify('send mr normal to defend deposit '+depoRoomName); 
         }

@@ -649,8 +649,8 @@ var consoleUtils = {
         return 'success';
     },
     
-    quad: function(roomName, count = 1, duration = 20000) { 
-        if (!roomName) return "quad(roomName, count = 1, duration = 20000)";
+    quad: function(roomName, count = 1, duration = 20000, melee = 0) { 
+        if (!roomName) return "quad(roomName, count = 1, duration = 20000, melee = 0)";
         let pathLength = 250;
         let homeRoom;
         if (!homeRoom) {
@@ -661,7 +661,7 @@ var consoleUtils = {
             homeRoom = spawnRoomInfo.roomName;
             pathLength = spawnRoomInfo.length;            
         }
-        Memory.quads[roomName] = {room:homeRoom, time:Game.time, duration: duration, count:count, soonDie: 200+pathLength};
+        Memory.quads[roomName] = {room:homeRoom, time:Game.time, duration: duration, count:count, soonDie: 200+pathLength, melee: melee};
         return 'success '+roomName+' '+ homeRoom+ ' ' + count + ' ' + JSON.stringify(Memory.quads[roomName]);
     },
 
@@ -1065,6 +1065,17 @@ spawnCost: function(body) {
     let result = body.reduce((a, c) => a += BODYPART_COST[c], 0);
     console.log('parsing Cost', result, body);
     return result;
+},
+
+resetInterAttacked: function() {
+    Memory.inter_attacked = undefined;
+    let data = JSON.parse(InterShardMemory.getLocal() || "{}");
+    if (data.inter_attacked) {
+        data.inter_attacked = undefined
+        InterShardMemory.setLocal(JSON.stringify(data));
+        return 'reset';
+    }
+    return 'not found';
 },
 
 

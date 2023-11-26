@@ -279,7 +279,7 @@ var roleOperator = {
                             //operator.moveTo(Game.flags[flag]);                
                         }
                     }     
-                } else if (1 && Game.shard.name=='shard2' && Game.time<49401770 +3000000 && ['E44S8',].indexOf(operator.room.name) >= 0 && operator.powers[PWR_OPERATE_SPAWN] && (!operator.powers[PWR_OPERATE_SPAWN].cooldown || operator.powers[PWR_OPERATE_SPAWN].cooldown < 10 ) && operator.memory.spawns && operator.memory.spawns.length  
+                } else if (1 && Game.shard.name=='shard2' && Game.time<49401770 +3000000 && ['E44S8_','E36N9','E45N11','E41N19','E41N39'].indexOf(operator.room.name) >= 0 && operator.powers[PWR_OPERATE_SPAWN] && (!operator.powers[PWR_OPERATE_SPAWN].cooldown || operator.powers[PWR_OPERATE_SPAWN].cooldown < 10 ) && operator.memory.spawns && operator.memory.spawns.length  
                         //&& (!Game.getObjectById(operator.memory.spawns[0]).effects || !Game.getObjectById(operator.memory.spawns[0]).effects.length)
                         && operator.store[RESOURCE_OPS]>=200) {
                     let spawnDeal = false;

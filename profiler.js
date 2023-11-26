@@ -16,7 +16,7 @@ module.exports = {
         if (Memory.production) {
             this.whiteList = ['AllTime'];
             if (Game.shard.name == 'shard2') {
-                this.whiteList = ['AllTime', '_roleMiner','_roleSupertransporter'];
+                this.whiteList = ['AllTime', 'marketHelper'];
                 
                 //this.whiteList = ['AllTime', 'spawn', 'getGameCreeps'];
                 //this.whiteList = undefined;

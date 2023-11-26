@@ -350,7 +350,7 @@ var spawnHelper = {
                         if (Game.shard.name == 'shard3') {
                             if (creepRole == 'upgrader' && room.controller.level == 8){
                                 let boostAmount = _.get(Memory, 'stock.XGH2O',0);
-                                if (boostAmount > ((new Date()) >= (new Date('2022-08-01')) ? 30000 : 5100000)) {
+                                if (boostAmount > ((new Date()) >= (new Date('2023-12-01')) ? 30000 : 5100000)) {
                                     boosts = [RESOURCE_CATALYZED_GHODIUM_ACID];
                                 } else if (boostAmount > 10000) {
                                     this.checkUnboostAvaiable(room);
@@ -382,7 +382,7 @@ var spawnHelper = {
                             }
                             if (creepRole == 'upgrader' && room.controller.level == 8) {
                                 let boostAmount = _.get(Memory, 'stock.XGH2O',0);
-                                if (boostAmount > ((new Date()) >= (new Date('2023-04-01')) ? 50000 : 5100000)) {
+                                if (boostAmount > ((new Date()) >= (new Date('2023-12-01')) ? 50000 : 5100000)) {
                                     boosts = [RESOURCE_CATALYZED_GHODIUM_ACID];
                                 } else if (boostAmount > 50000) {
                                     this.checkUnboostAvaiable(room);

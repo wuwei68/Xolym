@@ -35,7 +35,7 @@ module.exports = {
             {roomName: 'E53N21', resource: RESOURCE_CATALYST, minLocalStore: 30000, buyAmount: 30000},
             {roomName: 'E45N29', resource: RESOURCE_OXYGEN, minLocalStore: 30000, buyAmount: 30000},
             {roomName: 'E52N32', resource: RESOURCE_HYDROGEN, minLocalStore: 30000, buyAmount: 30000},
-            {roomName: 'E55N27', resource: RESOURCE_POWER, minLocalStore: 20000, buyAmount: 7000},
+            {roomName: 'E55N27', resource: RESOURCE_POWER, minLocalStore: 200000, buyAmount: 20000},
             {roomName: 'E43N38', resource: RESOURCE_CATALYZED_GHODIUM_ACID, minLocalStore: 100000, buyAmount: 15000},
             {roomName: 'E36N9',  resource: RESOURCE_CATALYZED_LEMERGIUM_ACID, minLocalStore: 30000, buyAmount: 10000},
             {roomName: 'E55N31', resource: RESOURCE_ZYNTHIUM, minLocalStore: 30000, buyAmount: 30000},
@@ -61,6 +61,11 @@ module.exports = {
             {roomName: 'E79N52', resource: RESOURCE_METAL, minLocalStore: 250000, buyAmount: 10000},
             {roomName: 'E79N59', resource: RESOURCE_UTRIUM, minLocalStore: 18000, buyAmount: 10000},
             {roomName: 'E79N59', resource: RESOURCE_ZYNTHIUM, minLocalStore: 18000, buyAmount: 10000}, 
+            {roomName: 'E79N59', resource: RESOURCE_HYDROGEN, minLocalStore: 18000, buyAmount: 10000},
+            {roomName: 'E79N59', resource: RESOURCE_OXYGEN, minLocalStore: 18000, buyAmount: 10000},
+            {roomName: 'E52N41', resource: RESOURCE_KEANIUM, minLocalStore: 18000, buyAmount: 10000},
+            {roomName: 'E52N41', resource: RESOURCE_LEMERGIUM, minLocalStore: 18000, buyAmount: 10000},
+            {roomName: 'E52N41', resource: RESOURCE_POWER, minLocalStore: 20000, buyAmount: 7000},
         ],
         'shard1': [
             // {roomName: 'E41N38', resource: RESOURCE_CATALYZED_GHODIUM_ACID, minLocalStore: 200000, buyAmount: 15000},
@@ -109,6 +114,19 @@ module.exports = {
         //         require('market').buyOrder(room, RESOURCE_ENERGY, 100000);
         //     }
         //  }
+        
+        //  if (1 && Game.shard.name == 'shard2' && !(Game.time%50)) {
+        //     let room = Game.rooms.E57N29;
+        //     if (room && room.terminal && room.storage && room.storage.store[RESOURCE_ENERGY] < 250000 && room.storage.store.getFreeCapacity()>40000 && room.terminal.store.getFreeCapacity()>40000) {
+        //         require('market').buyOrder(room, RESOURCE_ENERGY, 100000);
+        //     }
+        //  }
+        //  if (1 && Game.shard.name == 'shard2' && !(Game.time%50)) {
+        //     let room = Game.rooms.E49N22;
+        //     if (room && room.terminal && room.storage && room.storage.store[RESOURCE_ENERGY] < 450000 && room.storage.store.getFreeCapacity()>40000 && room.terminal.store.getFreeCapacity()>40000) {
+        //         require('market').buyOrder(room, RESOURCE_ENERGY, 100000);
+        //     }
+        //  }
          
          if (1 && Game.shard.name == 'shard3' && !(Game.time%50)) {
             let room = Game.rooms.E45N28;
@@ -116,6 +134,15 @@ module.exports = {
                 require('market').buyOrder(room, RESOURCE_ENERGY, 100000);
             }
          }
+    },
+    
+    //call every 50tick on every my room
+    checkRoomEnergy: function(room) {
+        if (['shard2'].includes(Game.shard.name) && room.controller && room.controller.my && room.controller.level >= 8) {
+            if (room.terminal && room.storage && room.storage.store[RESOURCE_ENERGY] < 250000 && room.storage.store.getFreeCapacity()>40000 && room.terminal.store.getFreeCapacity()>40000) {
+                this.buyOrder(room, RESOURCE_ENERGY, 100000);
+            }
+        }
     },
 
     
@@ -179,14 +206,27 @@ module.exports = {
             maxPriceBorder[RESOURCE_CATALYZED_GHODIUM_ACID].borderPrice = 15.01;
             maxPriceBorder[RESOURCE_CATALYST].borderPrice = 110.7;
             maxPriceBorder[RESOURCE_CATALYST].agressive = 1;
-            maxPriceBorder[RESOURCE_UTRIUM].borderPrice = 55.2;
+            maxPriceBorder[RESOURCE_UTRIUM].borderPrice = 155.2;
             maxPriceBorder[RESOURCE_UTRIUM].amountOrdersFilter = 1000;
             maxPriceBorder[RESOURCE_UTRIUM].agressive = 1;
+            maxPriceBorder[RESOURCE_HYDROGEN].borderPrice = 45.5;
+            maxPriceBorder[RESOURCE_OXYGEN].borderPrice = 158.5;
+            maxPriceBorder[RESOURCE_OXYGEN].agressive = 1;
+            maxPriceBorder[RESOURCE_KEANIUM].borderPrice = 30.5;
+            maxPriceBorder[RESOURCE_KEANIUM].agressive = 1;
+            maxPriceBorder[RESOURCE_LEMERGIUM].borderPrice = 15.5;
+            maxPriceBorder[RESOURCE_ZYNTHIUM].borderPrice = 15.5; 
+            maxPriceBorder[RESOURCE_ZYNTHIUM].agressive = 1;
+            maxPriceBorder[RESOURCE_POWER].borderPrice = 390.5;
+            maxPriceBorder[RESOURCE_POWER].dPrice = 0.1;
+            maxPriceBorder[RESOURCE_POWER].agressive = 1;
+
+            
         }
         if (Game.shard.name == 'shard1') { 
             maxPriceBorder[RESOURCE_ENERGY].borderPrice = 17.970;
             maxPriceBorder[RESOURCE_ENERGY].dPrice = 0.05;
-            maxPriceBorder[RESOURCE_ENERGY].agressive = 1
+            maxPriceBorder[RESOURCE_ENERGY].agressive = 1;
             maxPriceBorder[RESOURCE_CATALYZED_GHODIUM_ACID].borderPrice = 160;
             maxPriceBorder[RESOURCE_CATALYZED_GHODIUM_ACID].dPrice = 0.5;
             
@@ -202,7 +242,10 @@ module.exports = {
         }
         if (Game.shard.name == 'shard2') {
             maxPriceBorder[RESOURCE_ENERGY].borderPrice = 4.9;
-            maxPriceBorder[RESOURCE_ENERGY].borderPrice = 8.5;
+            maxPriceBorder[RESOURCE_ENERGY].borderPrice = 11.9;
+            maxPriceBorder[RESOURCE_ENERGY].borderPrice = 19.9;
+            maxPriceBorder[RESOURCE_ENERGY].borderPrice = 13.9;
+            maxPriceBorder[RESOURCE_ENERGY].agressive = 1
             maxPriceBorder[RESOURCE_ENERGY].dPrice = 0.05;
             
             
@@ -220,7 +263,7 @@ module.exports = {
             maxPriceBorder[RESOURCE_LEMERGIUM].agressive = 1;
             maxPriceBorder[RESOURCE_HYDROGEN].borderPrice = 89.1;
             maxPriceBorder[RESOURCE_HYDROGEN].agressive = 1;
-            maxPriceBorder[RESOURCE_OXYGEN].borderPrice = 66.1;
+            maxPriceBorder[RESOURCE_OXYGEN].borderPrice = 75.1;
             maxPriceBorder[RESOURCE_ZYNTHIUM].borderPrice = 85.5;
             maxPriceBorder[RESOURCE_ZYNTHIUM].agressive = 1;
             maxPriceBorder[RESOURCE_POWER].borderPrice = 900.5;
@@ -236,7 +279,7 @@ module.exports = {
             maxPriceBorder[RESOURCE_ENERGY].dPrice = 0.05;
             maxPriceBorder[RESOURCE_CATALYZED_GHODIUM_ACID].borderPrice = 55.01;
             maxPriceBorder[RESOURCE_CATALYZED_GHODIUM_ACID].dPrice = 0.5;
-            maxPriceBorder[RESOURCE_UTRIUM].borderPrice = 31.5;
+            maxPriceBorder[RESOURCE_UTRIUM].borderPrice = 67.5;
             maxPriceBorder[RESOURCE_UTRIUM].amountOrdersFilter = 1000;
             maxPriceBorder[RESOURCE_UTRIUM].agressive = 1;
             maxPriceBorder[RESOURCE_HYDROGEN].borderPrice = 90.1;
@@ -245,12 +288,13 @@ module.exports = {
             maxPriceBorder[RESOURCE_OXYGEN].borderPrice = 78.1;
             maxPriceBorder[RESOURCE_OXYGEN].amountOrdersFilter = 1000;
             maxPriceBorder[RESOURCE_OXYGEN].agressive = 1;
-            maxPriceBorder[RESOURCE_ZYNTHIUM].borderPrice = 77.5;
+            maxPriceBorder[RESOURCE_ZYNTHIUM].borderPrice = 102.5;
             maxPriceBorder[RESOURCE_ZYNTHIUM].agressive = 1;
-            maxPriceBorder[RESOURCE_CATALYST].borderPrice = 99.5;
+            maxPriceBorder[RESOURCE_CATALYST].borderPrice = 145.5;
             maxPriceBorder[RESOURCE_CATALYST].amountOrdersFilter = 1000;
             maxPriceBorder[RESOURCE_CATALYST].agressive = 1;
-            maxPriceBorder[RESOURCE_LEMERGIUM].borderPrice = 45.5;
+            maxPriceBorder[RESOURCE_LEMERGIUM].borderPrice = 110.5;
+            maxPriceBorder[RESOURCE_LEMERGIUM].agressive = 1;
             maxPriceBorder[RESOURCE_POWER].borderPrice = 490.5;
             maxPriceBorder[RESOURCE_POWER].dPrice = 0.1;
             maxPriceBorder[RESOURCE_POWER].agressive = 1;
@@ -260,14 +304,14 @@ module.exports = {
         
         
 
-        
+        let myOrders = Object.keys(Game.market.orders);
         for (const resource in Memory.marketBuyOrders) {
             if (!maxPriceBorder[resource] || !maxPriceBorder[resource].amountOrdersFilter) {
                 Game.notify('Set border price for buy resource '+resource );
                 continue;
             }
             let orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: resource}); // fast
-            orders = _.filter(orders, (order) => order.amount>=maxPriceBorder[resource].amountOrdersFilter);
+            orders = _.filter(orders, (order) => !myOrders.includes(order.id) && order.amount>=maxPriceBorder[resource].amountOrdersFilter);
             
             if (orders.length) {
                 orders.sort(function (a,b){return b.price-a.price;});
@@ -742,7 +786,7 @@ module.exports = {
             dTick = 1;
         }
         
-        if (1 && !(Game.time%dTick) && ['shard3','shard0','shard1'].includes(Game.shard.name) && room.storage && room.terminal  && !room.terminal.cooldown) {
+        if (1 && !(Game.time%dTick) && ['shard3','shard0','shard1','shard2'].includes(Game.shard.name) && room.storage && room.terminal  && !room.terminal.cooldown) {
                 
             const resourcesToSell = [
                 // {resourceType: RESOURCE_UTRIUM,    minPrice: 0.1, sellAmount: 3000, minQty: 180000},
@@ -761,9 +805,9 @@ module.exports = {
                 // {resourceType: RESOURCE_LEMERGIUM_BAR, minPrice: 0.601, sellAmount: 1000, minQty: 50000},
                 //{resourceType: RESOURCE_ZYNTHIUM_BAR, minPrice: 0.4500, sellAmount: 1000, minQty: 50000},
                 
-                {resourceType: RESOURCE_MACHINE, minPrice: 6700000, sellAmount: 5, minSellAmount: 1, minQty: 0, shards: ['shard0','shard1'],},
+                {resourceType: RESOURCE_MACHINE, minPrice: 6000000, sellAmount: 5, minSellAmount: 1, minQty: 0, shards: ['shard0','shard1'],},
                 //{resourceType: RESOURCE_ESSENCE, minPrice: 3400000, sellAmount: 5, minSellAmount: 1, minQty: 0, shards: ['shard0',],},  
-                {resourceType: RESOURCE_DEVICE,  minPrice: 3300000, sellAmount: 5, minSellAmount: 1, minQty: 0, shards: ['shard3','shard1','shard0'],}, 
+                {resourceType: RESOURCE_DEVICE,  minPrice: 3600000, sellAmount: 5, minSellAmount: 1, minQty: 0, shards: ['shard3','shard1','shard0','shard2'],}, 
                 //{resourceType: RESOURCE_POWER,                          minPrice: 0.05, sellAmount: 1000, minQty: 00},
                 ];
             for(const resourceToSell of resourcesToSell) {

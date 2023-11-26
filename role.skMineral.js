@@ -154,7 +154,12 @@ var roleSkMineral = {
     },
 
     run: function(creep) {
-        if (helpers.sleep(creep)) return;
+        if (helpers.sleep(creep)) {
+            if (creep.hits < creep.hitsMax) {
+            } else {
+                return;    
+            } 
+        }
         if (helpers.runMoveOrder(creep)) return;
         if (Memory.mapVisual) Game.map.visual.text("sM️",creep.pos, { fontSize:10});
         if (creep.memory.targetId && creep.memory.room && Memory.skMineral && Memory.skMineral[creep.memory.room] && Memory.skMineral[creep.memory.room][creep.memory.targetId]) {
@@ -370,12 +375,21 @@ var roleSkMineral = {
                     let targets = mineralPos.findInRange(FIND_HOSTILE_CREEPS, 7).filter(object=> !(object.owner.username == 'Invader' && object.name.startsWith('defender')));
                     if (targets.length) {
                         let target = targets[0];
+                        if (targets.length > 1) {
+                            target = creep.pos.findClosestByPath(targets);
+                        }
                         if (creep.pos.isNearTo(target)) {
-                            let res = creep.attack(target);
-                            creep.move(creep.pos.getDirectionTo(target));
-                            if (res != OK) {
+                            if (creep.hits < creep.hitsMax && creep.hits <= 1500 && target.getActiveBodyparts(ATTACK) && !target.getActiveBodyparts(RANGED_ATTACK)) {
+                                creep.move(creep.pos.getDirectionTo(target));
                                 creep.heal(creep);
+                            } else {
+                                let res = creep.attack(target);
+                                creep.move(creep.pos.getDirectionTo(target));
+                                if (res != OK) {
+                                    creep.heal(creep);
+                                }
                             }
+                            
                         } else {
                             creep.moveTo(target, {reusePath:0, range:1, maxRooms:1, visualizePathStyle: {stroke: '#ffffff'}});
                             if (creep.hits < creep.hitsMax || creep.pos.inRangeTo(target, 3)) {

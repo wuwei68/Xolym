@@ -96,8 +96,10 @@ module.exports = {
                             }
                             // body = [MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY];
                             // boosts = []; 
-                            body = [WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE];    
-                            boosts = [RESOURCE_CATALYZED_GHODIUM_ACID];
+                            // body = [WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE];    
+                            // boosts = [RESOURCE_CATALYZED_GHODIUM_ACID];
+                            body = [WORK,CARRY,CARRY,MOVE,MOVE,MOVE];    
+                            boosts = [];
                         }
 
                         if (Game.shard.name == 'shard2' && ['FlagMbr8','FlagMbr7','FlagMbr6','FlagMbr5','FlagMbr15'].includes(flagName)) {
@@ -866,7 +868,7 @@ module.exports = {
         this.runP();
         
         
-        if (1 && (Game.shard.name == 'shard2'  || Game.shard.name == 'shard1_' || Game.shard.name == 'shard3') ) {
+        if (1 && (Game.shard.name == 'shard2'  || Game.shard.name == 'shard1' || Game.shard.name == 'shard3') ) {
             let mbrInfos = {
                 // 'E43N38': { //GCL TEMPLE!!!!!!!!!!!!!!!
                 //     shard: 'shard2',
@@ -938,7 +940,7 @@ module.exports = {
                              'mClK1',
                             ],
                     noSpawn: [ 
-                        
+                        'mBrK2',
                         ],
                     towers: [{"x":9,"y":31},{"x":10,"y":30},{"x":8,"y":32},],
                 },
@@ -980,29 +982,25 @@ module.exports = {
                 // },
                 
                 
-                // 'E41N39': {
-                //     shard: 'shard1',
-                //     spawnRoom: 'E41N38',
-                //     flagName: 'FlagS1Gcl',
-                //     creeps: [
+                'E41N39': {
+                    shard: 'shard1',
+                    spawnRoom: 'E41N38',
+                    flagName: 'FlagS1Gcl',
+                    creeps: [
                        
-                //             'mBrS1','mBrS2','mBrS3','mBrS4','mBrS5','mBrS6','mBrS7',//'mBrS8','mBrS9','mBrS10','mBrS11','mBrS12',
-                //             //'mLrS1',
-                //             'mChS1',
-                //             //'mClS1',
-                //             'reClS1',
-                //             ],
-                //     noSpawn: [
-                //             'mBrS1','mBrS2','mBrS3','mBrS4','mBrS5','mBrS6',//'mBrS7',//'mBrS8','mBrS9','mBrS10','mBrS11','mBrS12',
-                //             //'mLrS1',
-                //             //'mChS1',
-                //             //'mClS1',
-                //             //'reClS1',
-                //         ],
-                //     // towers: [{"x":9,"y":37},{"x":10,"y":36},],
-                //     // terminal: {"x":40,"y":26},
-                //     // storage: {x:38,y:28},
-                // },
+                            'mBrS1',//'mBrS2','mBrS3','mBrS4','mBrS5','mBrS6','mBrS7',//'mBrS8','mBrS9','mBrS10','mBrS11','mBrS12',
+                            //'mLrS1',
+                            //'mChS1',
+                            'mClS1',
+                            //'reClS1',
+                            ],
+                    noSpawn: [
+                           
+                        ],
+                    // towers: [{"x":9,"y":37},{"x":10,"y":36},],
+                    // terminal: {"x":40,"y":26},
+                    // storage: {x:38,y:28},
+                },
                 
                 
                
@@ -2069,6 +2067,26 @@ module.exports = {
         }
     }
     
+    if (0 && Game.shard.name == 'shard2' && (!((Game.time+0)%10) || !((Game.time+1)%10) )) {
+        let obs = Game.getObjectById('61a9f15edfb988415fea771e');
+        if (obs) {
+            ['E28N11',].forEach(roomName => {
+                let room = Game.rooms[roomName];
+                if (!room) {
+                    obs.observeRoom(roomName);
+                } else {
+                    let hostiles = room.find(FIND_HOSTILE_CREEPS).filter(c=>c.getActiveBodyparts(TOUGH) > 5)
+                    console.log('see room', roomName, hostiles.length);
+                    if (hostiles.length) {
+                        console.log('!!!!!!!!!!!!!!!!!!!!!!!!');
+                        Memory.pairs.E37N10.count = 3;// Memory.pairs.E37N10.count = 0
+                        Memory.massRangers.E37N10.count = 5;//Memory.massRangers.E37N10.count = 0
+                    }
+                }
+            })
+        }
+    }
+    
     if (0 && Game.shard.name == 'shard2') {
         const startCpu = Game.cpu.getUsed();
         let findMode = FIND_CREEPS;//FIND_HOSTILE_CREEPS;
@@ -2238,8 +2256,8 @@ module.exports = {
         
     }
     
-    if (0 && Game.shard.name == 'shard0' && Game.time < 52693140 + 60000 && Memory.rooms.E51N36) {
-        Memory.rooms.E51N36.avoid = 0;
+    if (1 && Game.shard.name == 'shard2' && Game.time < 50015530  + 60000 && Memory.rooms.E42N12) {
+        Memory.rooms.E42N12.avoid = 0;
     }
     
     
@@ -2357,6 +2375,22 @@ module.exports = {
          
      }
      
+     if (0) {//&& Game.shard.name == 'shard0') {
+         console.log('find intx50354550');
+         let creep = Game.creeps.intx50354550;
+         if (creep) {
+             Game.notify('intx50354550 detected '+creep.room.name);
+             let terminal = Game.getObjectById('60f9a082c88f0f82b5041d78');
+             if (terminal) {
+                if (creep.pos.isNearTo(terminal)) {
+                    creep.transfer(terminal, RESOURCE_DEVICE);
+                } else {
+                    creep.moveTo(terminal);    
+                }
+             }
+         }
+     }
+     
     //  if (1 && Game.creeps.intz36628360) {
     //      let creep = Game.creeps.intz36628360;
     //      if (!creep.memory.notified) {
@@ -2364,6 +2398,41 @@ module.exports = {
     //         creep.memory.notified = 1;
     //      }
     //  }
+    
+    
+    if (0 && Game.shard.name == 'shard2') { 
+        let nukeTime = 50036866; // Game.time + Game.rooms.E36N9.find(FIND_NUKES)[0].timeToLand
+        let roomName = 'E36N9';
+        let saveRoomName = 'E35N9';
+        let pos;
+        if (Game.time> nukeTime - 50 && Game.time < nukeTime) {
+            pos = new RoomPosition(24, 24, saveRoomName);
+        } else if (Game.time> nukeTime && Game.time < nukeTime+50) {
+            pos = new RoomPosition(24, 24, roomName);
+        }
+        if (pos) {
+            [roomName, saveRoomName].forEach(roomName => {
+                let room = Game.rooms[roomName];
+                if (room) {
+                    room.find(FIND_MY_CREEPS).forEach(c=> {
+                        c.cancelOrder('move');
+                        c.moveTo(pos, {range: 8, ignoreCreeps: true});
+                        if (c.fatigue && c.store.getUsedCapacity()) {
+                            // drop all resources
+                            for(const resourceType in c.store) {
+                                c.drop(resourceType);
+                            }
+                        }
+                    });
+                    room.find(FIND_MY_POWER_CREEPS).forEach(c=> {
+                        c.cancelOrder('move');
+                        c.moveTo(pos, {range: 8, ignoreCreeps: true})
+                    });
+                }
+            })
+        }
+        console.log(roomName, 'nuke landing in ', nukeTime - Game.time, 'ticks');
+    }
      
 
      if (0 && Game.shard.name == 'shard2') { //visual roads

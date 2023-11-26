@@ -118,10 +118,10 @@ module.exports.loop = function () {
     }
 
     
-    if(!(Game.time%2000) && Game.shard.name == 'shard0' && Game.cpu.unlockedTime && ((Game.cpu.unlockedTime - Date.now()) < 1000*60*60*24)) {
-        Game.cpu.unlock();
-        //Game.notify('CPU unlocked!!!');
-    }
+    // if(!(Game.time%2000) && Game.shard.name == 'shard0' && Game.cpu.unlockedTime && ((Game.cpu.unlockedTime - Date.now()) < 1000*60*60*24)) {
+    //     Game.cpu.unlock();
+    //     //Game.notify('CPU unlocked!!!');
+    // }
     
     //console.log(`<script>angular.element(document.querySelector('.room')).scope().Room.decorations = []</script>`);
     
@@ -251,8 +251,8 @@ module.exports.loop = function () {
 
     
     if (0 && Game.shard.name == 'shard2') {  
-        let targetRoom = 'E57N36';
-        let targetPos = new RoomPosition(24,17,targetRoom); //Memory.nukeLaunch = 5; // type in console
+        let targetRoom = 'E41N11';
+        let targetPos = new RoomPosition(29,22,targetRoom); //Memory.nukeLaunch = 5; // type in console
         // let targetRoom = 'E57N34';
         // let targetPos = new RoomPosition(29,36,targetRoom); //Memory.nukeLaunch = 5; // type in console
         for(const myRoom of myRooms) {
@@ -266,7 +266,7 @@ module.exports.loop = function () {
                     if (range <= 10) {// && !nuker.cooldown) {
                         console.log(helpers.getRoomLink(room.name), 'NUKE distance', nuker.cooldown, range, nuker.store[RESOURCE_ENERGY], nuker.store[RESOURCE_GHODIUM], ready?'READY':'not ready');    
                     }
-                    if (0 && Memory.nukeLaunch && range <= 10 && ready) {
+                    if (0 && Memory.nukeLaunch && range <= 10 && ready) { //!!
                         let res = nuker.launchNuke(targetPos);
                         if (res == OK) {
                             Memory.nukeLaunch--;    
@@ -368,6 +368,10 @@ module.exports.loop = function () {
                 if (room.terminal && room.storage && room.terminal.store[RESOURCE_ENERGY] < 15000 && room.storage.store[RESOURCE_ENERGY] < 100000 && Memory.roomNeedEnergy) {
                     Memory.roomNeedEnergy[room.name] = 1;
                 }
+            }
+            
+            if (!(Game.time%50)){
+                marketHelper.checkRoomEnergy(room);
             }
             
             if (!(Game.time%300)){
@@ -505,7 +509,7 @@ module.exports.loop = function () {
 
             //find free spawn
             const spawns = room.find(FIND_MY_STRUCTURES, {
-                filter: (structure) => {return structure.structureType == STRUCTURE_SPAWN && !structure.spawning && (!Memory.spawns || !Memory.spawns[structure.name] || Game.time > Memory.spawns[structure.name].busyTime);}
+                filter: (structure) => {return structure.structureType == STRUCTURE_SPAWN && !structure.spawning && (!Memory.spawns || !Memory.spawns[structure.name] || (Memory.spawns[structure.name].busyTime && Game.time > Memory.spawns[structure.name].busyTime));}
             });
             let freeSpawn = spawns.length ? spawns[0] : null;
             if (freeSpawn && freeSpawn.id == '61a9f9f54b6a64060df640c9' && spawns.length > 1 && room.controller.level>=7) { //gclRoom
@@ -516,7 +520,7 @@ module.exports.loop = function () {
             if (freeSpawn && Game.time == room.memory.spawnBusyTick) {
                 freeSpawn = null;
             }
-            
+
             global.logText += " "+((freeSpawn&&0)?freeSpawn.name:"")+"("+room.energyAvailable+"/"+room.energyCapacityAvailable+") ";
 
             const elapsedPrepareRoom = Game.cpu.getUsed() - startCpuRoom;
@@ -529,7 +533,12 @@ module.exports.loop = function () {
                 if (room.memory.defendRoomMode == 2) {
                     myRoom.creeps = {roomDef: 0, roomDefRanged: 0, suplier: 2, miner: 0, transporter: 1, superharvester: 0, upgrader: 0, wallbuilder: 2 , harvester: 0}    
                 } else {
-                    myRoom.creeps = {roomDef: 1, roomDefRanged: 3, suplier: 2, miner: 0, transporter: 1, superharvester: 0, upgrader: 0, wallbuilder: 2 , harvester: 0}    
+                    if (room.name == 'E36N9') {
+                        myRoom.creeps = {roomDef: 0, roomDefRanged: 0, suplier: 2, miner: 0, transporter: 1, superharvester: 0, upgrader: 0, wallbuilder: 2 , harvester: 0}    
+                    } else {
+                        myRoom.creeps = {roomDef: 1, roomDefRanged: 3, suplier: 2, miner: 0, transporter: 1, superharvester: 0, upgrader: 0, wallbuilder: 2 , harvester: 0}        
+                    }
+                    
                 }
                 
                 
@@ -833,8 +842,22 @@ module.exports.loop = function () {
             creep.heal(creep);
             continue;
         }
-        if (Game.shard.name == 'shard2' && creep.room.name == 'W45N55' && Game.getObjectById('64c2843989049aa8d62338f0')) {
-            creep.moveTo(Game.getObjectById('64c2843989049aa8d62338f0'));
+        if (Game.shard.name == 'shard2' && creep.room.name == 'W45N55' && Game.getObjectById('64e1a9a5b8ab6fdba371ef9e')) {
+            creep.moveTo(Game.getObjectById('64e1a9a5b8ab6fdba371ef9e'));
+            creep.memory._trav = undefined;
+            Game.notify('detect portal move '+ creep.room.name+ ' tick '+Game.time);
+            creep.heal(creep);
+            continue;
+        }
+        if (Game.shard.name == 'shard2' && creep.room.name == 'W45N45' && Game.getObjectById('64f7a2ad9b32abc423d092f2')) {
+            creep.moveTo(Game.getObjectById('64f7a2ad9b32abc423d092f2'));
+            creep.memory._trav = undefined;
+            Game.notify('detect portal move '+ creep.room.name+ ' tick '+Game.time);
+            creep.heal(creep);
+            continue;
+        }
+         if (Game.shard.name == 'shard2' && creep.room.name == 'E15S35' && Game.getObjectById('64f634ef41854d16782e48fc')) {
+            creep.moveTo(Game.getObjectById('64f634ef41854d16782e48fc'));
             creep.memory._trav = undefined;
             Game.notify('detect portal move '+ creep.room.name+ ' tick '+Game.time);
             creep.heal(creep);

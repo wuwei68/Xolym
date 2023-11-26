@@ -411,28 +411,28 @@ var shardCfg = {
     },
     manageResources: {
         // 'E81N58': {[RESOURCE_GHODIUM]: {conditionsOr: [{res: RESOURCE_GHODIUM, amount: 15000},], maxPrice: 1.100, buyAmount: 20000}}, 
-        'E54N49': {[RESOURCE_UTRIUM]: {conditionsOr: [{res: RESOURCE_UTRIUM, amount: 30000},], maxPrice: 55.700, buyAmount: 30000}},
+        'E54N49': {[RESOURCE_UTRIUM]: {conditionsOr: [{res: RESOURCE_UTRIUM, amount: 30000},], maxPrice: 75.700, buyAmount: 30000}},
         // 'E81N54': {[RESOURCE_ZYNTHIUM]: {conditionsOr: [{res: RESOURCE_ZYNTHIUM, amount: 10000}, /*{res: RESOURCE_ZYNTHIUM_BAR, amount: 1000}*/], maxPrice: 0.100, buyAmount: 30000}},
-        'E71N56': {[RESOURCE_OXYGEN]: {conditionsOr: [{res: RESOURCE_OXYGEN, amount: 10000}, /*{res: RESOURCE_OXIDANT, amount: 1000}*/], maxPrice: 0.100, buyAmount: 30000}},
+        'E71N56': {[RESOURCE_OXYGEN]: {conditionsOr: [{res: RESOURCE_OXYGEN, amount: 10000}, /*{res: RESOURCE_OXIDANT, amount: 1000}*/], maxPrice: 85.100, buyAmount: 30000}},
         // 'E86N53': {[RESOURCE_HYDROGEN]: {conditionsOr: [{res: RESOURCE_HYDROGEN, amount: 10000}, /*{res: RESOURCE_REDUCTANT, amount: 1000}*/], maxPrice: 0.500, buyAmount: 30000}},
         'E79N54': {[RESOURCE_CATALYST]: {conditionsOr: [{res: RESOURCE_CATALYST, amount: 30000}], maxPrice: 2.100, buyAmount: 15000}},
         'E77N54': {
             [RESOURCE_OPS]: {conditionsOr: [{res: RESOURCE_OPS, amount: 10000}], maxPrice: 20.250, buyAmount: 6000},
-            [RESOURCE_HYDROGEN]: {conditionsOr: [{res: RESOURCE_HYDROGEN, amount: 10000},], maxPrice: 5.500, buyAmount: 30000},
-            [RESOURCE_POWER]: {conditionsOr: [{res: RESOURCE_POWER, amount: 50000}], maxPrice: 160.950, buyAmount: 10000},
+            [RESOURCE_HYDROGEN]: {conditionsOr: [{res: RESOURCE_HYDROGEN, amount: 10000},], maxPrice: 40.500, buyAmount: 30000},
+            [RESOURCE_POWER]: {conditionsOr: [{res: RESOURCE_POWER, amount: 50000}], maxPrice: 295.950, buyAmount: 20000},
         },
         'E79N52': {
-            [RESOURCE_KEANIUM]: {conditionsOr: [{res: RESOURCE_KEANIUM, amount: 10000}], maxPrice: 20.250, buyAmount: 10000},
+            [RESOURCE_KEANIUM]: {conditionsOr: [{res: RESOURCE_KEANIUM, amount: 10000}], maxPrice: 29.250, buyAmount: 10000},
             [RESOURCE_ZYNTHIUM]: {conditionsOr: [{res: RESOURCE_ZYNTHIUM, amount: 10000}, /*{res: RESOURCE_ZYNTHIUM_BAR, amount: 1000}*/], maxPrice: 0.100, buyAmount: 30000}
         },
         'E79N59': {
             [RESOURCE_OPS]: {conditionsOr: [{res: RESOURCE_OPS, amount: 10000}], maxPrice: 20.250, buyAmount: 6000},
-            [RESOURCE_LEMERGIUM]: {conditionsOr: [{res: RESOURCE_LEMERGIUM, amount: 20000}], maxPrice: 10.250, buyAmount: 15000},
-            [RESOURCE_OXYGEN]: {conditionsOr: [{res: RESOURCE_OXYGEN, amount: 25000}, ], maxPrice: 3.100, buyAmount: 30000},
-            [RESOURCE_ZYNTHIUM]: {conditionsOr: [{res: RESOURCE_ZYNTHIUM, amount: 25000}, ], maxPrice: 3.100, buyAmount: 30000},
+            [RESOURCE_LEMERGIUM]: {conditionsOr: [{res: RESOURCE_LEMERGIUM, amount: 20000}], maxPrice: 15.250, buyAmount: 15000},
+            [RESOURCE_OXYGEN]: {conditionsOr: [{res: RESOURCE_OXYGEN, amount: 25000}, ], maxPrice: 85.100, buyAmount: 30000},
+            [RESOURCE_ZYNTHIUM]: {conditionsOr: [{res: RESOURCE_ZYNTHIUM, amount: 25000}, ], maxPrice: 23.100, buyAmount: 30000},
         },
         'E59N46': {[RESOURCE_CATALYZED_GHODIUM_ACID]: {conditionsOr: [{res: RESOURCE_CATALYZED_GHODIUM_ACID, amount: 30000}], maxPrice: 20.250, buyAmount: 6000},},
-        'E52N41': {[RESOURCE_GHODIUM_ACID]: {conditionsOr: [{res: RESOURCE_GHODIUM_ACID, amount: 120000}], maxPrice: 20.250, buyAmount: 30000},},
+        'E52N41': {[RESOURCE_GHODIUM_ACID]: {conditionsOr: [{res: RESOURCE_GHODIUM_ACID, amount: 120000}], maxPrice: 20.250, buyAmount: 30000},}, 
         
     },
     // clone: function(object) {

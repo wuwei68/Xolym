@@ -3,6 +3,7 @@ var roleInter = require('role.inter');
 
 //Memory.pairs['E59N53'] = {room:'E57N47',  time: Game.time, duration: 300000, count: 1, body: {one:[WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,], two:[RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,MOVE,MOVE,MOVE,MOVE,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL],}, boosts: {one:[RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_ZYNTHIUM_ACID], two:[RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE, RESOURCE_CATALYZED_KEANIUM_ALKALIDE]}};
 //Memory.pairs['E59N53'] = {room:'E57N47',  time: Game.time, duration: 30000, count: 1, body: {one:[TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,MOVE,], two:[TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,HEAL,MOVE,],}, boosts: {one:[RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_GHODIUM_ALKALIDE, RESOURCE_CATALYZED_ZYNTHIUM_ACID], two:[RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_GHODIUM_ALKALIDE, RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE, RESOURCE_CATALYZED_KEANIUM_ALKALIDE]}};
+//Memory.pairs['E40N12'] = {room:'E36N9',  time: Game.time, duration: 30000, count: 1, soonDie: 400,  body: {one:b('10t15a9m15a1m'), two:b('10t5r9m25h1m')}, boosts: {one:[RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_GHODIUM_ALKALIDE, RESOURCE_CATALYZED_UTRIUM_ACID], two:[RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_GHODIUM_ALKALIDE, RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE, RESOURCE_CATALYZED_KEANIUM_ALKALIDE]}};
 var rolePair = {
     getBody: function(pairType, bodyType) {
         if (bodyType == 'pairBusted') {
@@ -340,6 +341,7 @@ var rolePair = {
             } catch (e) {}
             return;
         }
+        
         if (1 && two && two.memory.portal && !two.memory.portal.resetShard && two.room.name == two.memory.portal.roomName) {
             let targetPos = new RoomPosition(two.memory.portal.x, two.memory.portal.y, two.memory.portal.roomName);
             if (targetPos.isNearTo(two)) {
@@ -399,7 +401,7 @@ var rolePair = {
             return;
         }
         
-        if ( !flag.room  || creep.room.name != flag.room.name) {
+        if ( !flag.room  || creep.room.name != flag.room.name || (creep.memory.portal && creep.memory.portal.resetShard)) {
             if (creep.hits >= creep.hitsMax*0.9 && !creep.memory.retreat) {
                 if (creep.memory.portal) {
                     // creep.say('portal');
@@ -605,7 +607,7 @@ var rolePair = {
                     
                     let defendMode = false;
                     let radiusDefendMode = 0;
-                    let maxradiusDefendMode = 11;
+                    let maxradiusDefendMode = 13;
                     if (creep.room.controller && creep.room.controller.my && creep.room.controller.level >= 3 && escapePosition.pos && escapePosition.pos.roomName == creep.room.name) {
                         defendMode = true;
                         radiusDefendMode = creep.pos.getRangeTo(escapePosition);
@@ -623,10 +625,10 @@ var rolePair = {
                         this.moveTo(creep, two, target, {battle:1});
                     } else if (rangeToTarget <= moveCloseRange && rangeToTargetCreep<safeDistance) {
                         this.retreat(creep, two, escapePosition);
-                        creep.memory.retreat = 3;
+                        creep.memory.retreat = 8;
                     } else if (rangeToTargetCreep < safeDistance) { 
                         this.retreat(creep, two, escapePosition);
-                        creep.memory.retreat = 3;
+                        creep.memory.retreat = 8;
                     } else {
                         creep.memory.moveSlowly = undefined;
                         if(creep && two && !two.pos.isNearTo(creep)) {
@@ -748,7 +750,7 @@ var rolePair = {
         if (two && creep) {
             if (two.pos.isNearTo(creep)) {
                 if (this.positionInBorder(two)) {
-                    console.log('sdsdsdsdsdsdsdsdsdsdsd');
+                    console.log('sdsdsdsdsdsdsdsdsdsdsd borderMove pair');
                     two.moveTo(new RoomPosition(24,24,two.room.name), {reusePath: 0, range:23});
                 } else {
                     two.move(two.pos.getDirectionTo(creep));    
@@ -878,6 +880,12 @@ var rolePair = {
                 if (res == OK) {
                     meleeAtacked = true;
                     creep.say('a');
+                    
+                    if (creep.room.controller && creep.room.controller.my && creep.room.memory.towerAttackedTime != Game.time) {
+                        creep.say('at');
+                        creep.room.find(FIND_MY_STRUCTURES).filter(s=>s.structureType == STRUCTURE_TOWER).forEach(t=>t.attack(target));
+                    }
+                    
                 }
             }
             
@@ -1080,15 +1088,16 @@ var rolePair = {
         //     }
         // }
          
-        if (1 && creep.room.name == 'E52S1') {
+        if (1 && creep.room.name == 'E28N11') {
             let struct = targetStructure;
-            targetStructure = Game.getObjectById('6172fc5fb44c571e4c6226eb');
-            if (!targetStructure) {
-                targetStructure = Game.getObjectById('61b97bec830ae651ec9599f1');
-            }
-            if (!targetStructure) {
-                targetStructure = Game.getObjectById('61b8a0c48208c665b97fa7ee');
-            }
+            targetStructure = Game.getObjectById('6309b48988b8bf528b8aca07');
+            //targetStructure = Game.getObjectById('6309b3bcbe0ad8ee81377bf7');
+            // if (!targetStructure) {
+            //     targetStructure = Game.getObjectById('64cea1441fc4c76cc1461e5f');
+            // }
+            // if (!targetStructure) {
+            //     targetStructure = Game.getObjectById('64ce9179aad004211a217d55');
+            // }
             if (!targetStructure) {
                 targetStructure = struct;
             } else {

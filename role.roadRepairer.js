@@ -128,7 +128,7 @@ module.exports = {
                 //find container;
                 let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: function(obj) {
-                        return obj.structureType == STRUCTURE_CONTAINER && obj.store[RESOURCE_ENERGY] >= 300 && obj.id != '61aa6b67815b472fa6c29ddd'; //gcl cont
+                        return obj.structureType == STRUCTURE_CONTAINER && obj.store[RESOURCE_ENERGY] >= 300 && obj.id != '63b95315094904da8f275de9'; //gcl cont
                     } 
                 });
                 if (target && creep.store.getFreeCapacity() && creep.hits == creep.hitsMax) {

@@ -305,6 +305,10 @@ var roleMassRanger = {
         let pos = target.pos?target.pos:target;
         return (pos.x < 1 || pos.x >48 || pos.y < 1 || pos.y > 48);
     },
+    positionInNearBorder: function(target){
+        let pos = target.pos?target.pos:target;
+        return (pos.x < 2 || pos.x >47 || pos.y < 2 || pos.y > 47);
+    },
 
     
     run: function(creep) {
@@ -466,11 +470,17 @@ var roleMassRanger = {
             let enemyCreeps = creep.room.find(FIND_HOSTILE_CREEPS, {
                 filter: function (object) {
                     return helpers.ownerNotInWhiteList(object.owner.username)
-                    && !(object.room.name == 'E86N54' && object.pos.x == 37 && object.pos.y == 10 )
                     && object.owner.username != sourceKeeper
                     && object.body.length > minBodyLength;
                 }
             });
+            
+            if (0) {
+                let enemyCreepsFiltered = enemyCreeps.filter(c => creep.pos.inRangeTo(c,3) || !this.positionInNearBorder(c));
+                if (enemyCreepsFiltered.length) {
+                    enemyCreeps = enemyCreepsFiltered;
+                }
+            }
             
             if (!enemyCreeps.length && Game.shard.name == 'shard1' && creep.room.name == 'E50S10' && creep.hits == creep.hitsMax) {
                 minBodyLength = 0;
@@ -819,7 +829,9 @@ var roleMassRanger = {
                 let lastTargetPos = null;
                 creep.memory.lastTargetPos = creep.memory.targetPos;
                 lastTargetPos = creep.memory.lastTargetPos?(new RoomPosition(creep.memory.lastTargetPos.x, creep.memory.lastTargetPos.y, creep.memory.lastTargetPos.roomName)):null;
+                let lastTargetRange = lastTargetPos?creep.pos.getRangeTo(lastTargetPos):300;
                 creep.memory.targetPos = {x: target.pos.x, y: target.pos.y, roomName: target.pos.roomName};
+                
                 let rangeToTarget = creep.pos.getRangeTo(target);
                 let rangeToTargetCreep = 4;
                 if (targetCreep) {
@@ -953,16 +965,19 @@ var roleMassRanger = {
                         moveCloseMeleeRange = 3;
                         safeDistance = 3;
                     }
-                    if (1 && Game.shard.name == 'shard0' && creep.room.name == 'E58N37') {
+                    if (1 && Game.shard.name == 'shard2' && creep.room.name == 'E37N10') {
                         creep.say('s');
-                        safeDistance = 2;
-                         moveCloseMeleeRange = 1; 
-                         moveCloseRange = 1;
+                        safeDistance = 3;
+                        if (target.fatigue) {
+                            safeDistance = 2; 
+                        }
+                        //  moveCloseMeleeRange = 1; 
+                        //  moveCloseRange = 1;
                     }
-                    if (1 && Game.shard.name == 'shard3' && creep.room.name == 'E37N24') {
+                    if (1 && Game.shard.name == 'shard2' && creep.room.name == 'E35N3') {
                         creep.say('s');
-                        // safeDistance = 1;
-                        // moveCloseMeleeRange = 1;
+                        safeDistance = 1;
+                        moveCloseMeleeRange = 1;
                         moveCloseRange = 2;
                     }
                     let defendMode = false;
@@ -976,10 +991,15 @@ var roleMassRanger = {
                         maxradiusDefendMode = creep.room.memory.maxradiusDefendMode?creep.room.memory.maxradiusDefendMode:maxradiusDefendMode;
                     }
                     
+                    if (1 && Game.shard.name == 'shard2' && creep.room.name == 'E41S16') {
+                        creep.say(lastTargetRange+' '+rangeToTarget+' '+rangeToTargetCreep);
+                    }
                     if (defendMode && radiusDefendMode > maxradiusDefendMode) {
                         this.retreat(creep, escapePosition);
                     } else if (creep.memory.flagRange && creep.pos.getRangeTo(flag) > creep.memory.flagRange + (Math.round(Math.random()*2)-2)) {
                         creep.moveTo(flag, {reusePath: 0, range: 1, maxRooms: 1, });
+                    } else if (lastTargetPos && rangeToTarget > 4 && lastTargetRange < rangeToTarget && rangeToTargetCreep >= 4) {    
+                        creep.moveTo(lastTargetPos, {reusePath: 0, range: 1, maxRooms: 1, });
                     } else if (rangeToTarget>moveCloseRange && rangeToTargetCreep>4) { //2 3  //идем смело
                         creep.moveTo(target, {reusePath: 0, range: 1, maxRooms: 1, });// visualizePathStyle: {stroke: '#ffffff'}, });
                         if (!target.fatigue) creep.memory.moveSlowly = 1;
@@ -1068,7 +1088,12 @@ var roleMassRanger = {
                             console.log('unknown mr error');
                         }
                     } else {
-                        helpers.smartMove(creep, flag, 0);    
+                        if (creep.memory.incomplete) {
+                            helpers.smartMove(creep, flag, 0, 2);
+                        } else {
+                            helpers.smartMove(creep, flag);
+                        }
+                        
                     }
                 }
                 if (Game.shard.name == 'shard2' && creep.room.name == 'E50S10' && creep.pos.isNearTo(flag) && !(Game.time%10)) {

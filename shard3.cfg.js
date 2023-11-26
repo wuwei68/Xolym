@@ -103,20 +103,20 @@ var shardCfg = {
     manageResources: {
         'E42N31': {
             [RESOURCE_OPS]:      {conditionsOr: [{res: RESOURCE_OPS,      amount: 5000}],    maxPrice: 10.250, buyAmount: 3000},
-            [RESOURCE_CATALYST]: {conditionsOr: [{res: RESOURCE_CATALYST, amount: 30000}, ], maxPrice: 115.501, buyAmount: 5000},
+            [RESOURCE_CATALYST]: {conditionsOr: [{res: RESOURCE_CATALYST, amount: 30000}, ], maxPrice: 135.501, buyAmount: 5000},
             [RESOURCE_OXYGEN]:   {conditionsOr: [{res: RESOURCE_OXYGEN,   amount: 15000}, ], maxPrice: 55.501, buyAmount: 5000},
             [RESOURCE_KEANIUM]:  {conditionsOr: [{res: RESOURCE_KEANIUM,  amount: 15000}, ], maxPrice: 31.501, buyAmount: 5000},
             [RESOURCE_HYDROGEN]: {conditionsOr: [{res: RESOURCE_HYDROGEN, amount: 15000},],  maxPrice: 110.450,buyAmount: 10000},
             [RESOURCE_POWER]:    {conditionsOr: [{res: RESOURCE_POWER,    amount: 7000}],    maxPrice: 400.950, buyAmount: 8000}, 
             [RESOURCE_UTRIUM]:   {conditionsOr: [{res: RESOURCE_UTRIUM,   amount: 15000}, ], maxPrice: 38.501, buyAmount: 5000},
-            [RESOURCE_LEMERGIUM]:{conditionsOr: [{res: RESOURCE_LEMERGIUM,amount: 10000}, ], maxPrice: 38.501, buyAmount: 5000},
-            [RESOURCE_ZYNTHIUM]: {conditionsOr: [{res: RESOURCE_ZYNTHIUM, amount: 15000}, ], maxPrice: 69.501, buyAmount: 5000},
+            [RESOURCE_LEMERGIUM]:{conditionsOr: [{res: RESOURCE_LEMERGIUM,amount: 10000}, ], maxPrice: 68.501, buyAmount: 5000},
+            [RESOURCE_ZYNTHIUM]: {conditionsOr: [{res: RESOURCE_ZYNTHIUM, amount: 15000}, ], maxPrice: 102.501, buyAmount: 5000},
             // [RESOURCE_CATALYZED_GHODIUM_ACID]: {conditionsOr: [{res: RESOURCE_CATALYZED_GHODIUM_ACID, amount: 300000}, ], maxPrice: 75.501, buyAmount: 10000},
         },
         'E39N21': {
-            [RESOURCE_UTRIUM]: {conditionsOr: [{res: RESOURCE_UTRIUM, amount: 170000}, ], maxPrice: 42.501, buyAmount: 30000},
+            [RESOURCE_UTRIUM]: {conditionsOr: [{res: RESOURCE_UTRIUM, amount: 170000}, ], maxPrice: 52.501, buyAmount: 30000},
             [RESOURCE_HYDROGEN]: {conditionsOr: [{res: RESOURCE_HYDROGEN, amount: 170000},],  maxPrice: 110.450, buyAmount: 30000},
-            [RESOURCE_CATALYST]: {conditionsOr: [{res: RESOURCE_CATALYST, amount: 170000}, ], maxPrice: 115.501, buyAmount: 30000},
+            [RESOURCE_CATALYST]: {conditionsOr: [{res: RESOURCE_CATALYST, amount: 170000}, ], maxPrice: 135.501, buyAmount: 30000},
         },
 
     },

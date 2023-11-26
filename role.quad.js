@@ -158,8 +158,10 @@ var roleQuad = {
                                         if (baseRoom.memory.boostLabManual) {
                                             Game.notify('Quad: boostLabManual');
                                         } else if (baseRoom.memory.boostLab && !baseRoom.memory.boostLab.quad) {
-                                            Game.notify('Quad: boostLab already set. try off');
-                                            baseRoom.memory.boostLab.time = 1;
+                                            // Game.notify('Quad: boostLab already set. try off');
+                                            // baseRoom.memory.boostLab.time = 1; 
+                                            Game.notify('Quad: boostLab already set. continue');
+                                            quadTask.spawnTime = Game.time + 300;    
                                         } else {
                                             baseRoom.memory.boostLab = {boosts:boosts, time:Game.time +300000, filler: 1, spawn: 1, quad: 1};
                                             quadTask.spawnTime = Game.time + 300;    
@@ -278,7 +280,43 @@ var roleQuad = {
                                         // },
                                     ],
                                 };
-                                Memory.quadGroups[groupName] = groupInfo;
+                                let groupInfoMelee = {
+                                    pos: {x: 0, y: 0, roomName: ''},
+                                    homeRoom: room.name,
+                                    waitFlag: flagWaitName,
+                                    formationFlag: flagFormationName,
+                                    attackFlag: flagAttackName,
+                                    escapeFlag: flagEscapeName,
+                                    moveCloseRange: 1, //1 2 3 если один то масс атака
+                                    safeDistance: 3, // если 4 то будет пляска.. если 3 то нет.  //Memory.quadGroups.groupSN4.safeDistance
+                                    manualPositions: [],
+                                    melee: 1,
+                                    creeps: [
+                                        
+                                        {
+                                          body: b('5t1r24a9m10t1m'),
+                                          boosts: [RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_UTRIUM_ACID, RESOURCE_CATALYZED_GHODIUM_ALKALIDE, RESOURCE_CATALYZED_KEANIUM_ALKALIDE, ],
+                                        },
+                                        {
+                                          body: b('5t15r9m5t15h1m'),
+                                          boosts: [RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE, RESOURCE_CATALYZED_GHODIUM_ALKALIDE,RESOURCE_CATALYZED_KEANIUM_ALKALIDE ],
+                                        },
+                                        {
+                                          body: b('10t9m30h1m'),
+                                          boosts: [RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE, RESOURCE_CATALYZED_GHODIUM_ALKALIDE ],
+                                        },
+                                        {
+                                          body: b('10t9m30h1m'),
+                                          boosts: [RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE, RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE, RESOURCE_CATALYZED_GHODIUM_ALKALIDE ],
+                                        },
+                                    ],
+                                };
+                                
+                                if (quadTask.melee) {
+                                    Memory.quadGroups[groupName] = groupInfoMelee;
+                                } else {
+                                    Memory.quadGroups[groupName] = groupInfo;
+                                }
                             }
                         }    
                     }
@@ -606,9 +644,9 @@ var roleQuad = {
         let dy = targetPos.y - groupPos.y;
         let absDx = Math.abs(dx);
         let absDy = Math.abs(dy);
-        console.log('Direction', dx, dy, absDx, absDy);
+        
         let newDirection = -1;
-        if ((dx == -1 && dy == -1) || (dx == 0 && dy == -1) || (dx == 1 && dy == -1)) {
+        if ((dx == -1 && dy == -1) || /*(dx == 0 && dy == -1) ||*/ (dx == 1 && dy == -1)) {
              newDirection = LEFT;    
         } else if (dx == 2 && dy == 2) {
              newDirection = RIGHT;    
@@ -641,6 +679,7 @@ var roleQuad = {
                 newDirection = TOP;    
             }
         }
+        console.log('Direction', dx, dy, absDx, absDy, 'newDir', newDirection);
         if (group.newDirection) {
             newDirection = group.newDirection;
             group.newDirection = undefined;
@@ -806,6 +845,7 @@ var roleQuad = {
         return (pos.x < 1 || pos.x >=48 || pos.y < 1 || pos.y >= 48);
     },
     runGroup: function(group, groupName) {
+        if (!group) return;
         if (!group.groupped) {
             
             let flag = Game.flags[group.waitFlag];
@@ -1034,6 +1074,12 @@ var roleQuad = {
         }
         
         
+        // try {
+        //     if (group.melee && creeps.length == 4) {
+        //         creeps[2]
+        //     }
+
+        // } catch (e) {}
         
         //try {
             let sourceKeeper = 'Source Keeper';
@@ -1439,6 +1485,8 @@ var roleQuad = {
                             }
                             group.manualPosition = _.sample(clonePos);
                             group.moveToManualPosition = 1;
+                        } else if (group.rangeToFlagAttack && rangeToFlagAttack > group.rangeToFlagAttack) { //!!!!!!!!!!!!!!!!!!!!!! RANGE TO FLAG
+                            this.moveGroup(group, creeps, groupPos, target, 1, false);
                         } else if (rangeToFlagAttack > 60) { //!!!!!!!!!!!!!!!!!!!!!! RANGE TO FLAG
                             this.moveGroup(group, creeps, groupPos, target, 1, false);
                         } else if (minHpFactor >= 0.95) {
@@ -1682,7 +1730,7 @@ var roleQuad = {
             target = targetStructure;
         }
         
-        if (target) {
+        if (target || targetHeal) {
             let rangeToTarget = creep.pos.getRangeTo(target);
             let rangeToTargetCreep = 4;
             if (targetCreep) {
@@ -1734,7 +1782,6 @@ var roleQuad = {
             }
             
             
-            
             if (enemyWoRamp.length > 1 && enemyDamage > 10) {
                 creep.rangedMassAttack();
                 rangedAtacked = true;
@@ -1750,7 +1797,10 @@ var roleQuad = {
                 rangedAtacked = true;
             } else {
                 //creep.say(rangeToTarget);
-                if (rangeToTarget <= 1 && !(target.structureType && target.structureType == STRUCTURE_WALL)) { //check to wall
+                if (rangeToTarget <= 3 && creep.getActiveBodyparts(RANGED_ATTACK) == 1) {
+                    creep.rangedMassAttack();
+                    rangedAtacked = true;
+                } else if (rangeToTarget <= 1 && !(target.structureType && target.structureType == STRUCTURE_WALL)) { //check to wall
                     creep.rangedMassAttack();
                     rangedAtacked = true;
                 } else if (rangeToTarget <= 3) {
@@ -1900,7 +1950,7 @@ var roleQuad = {
                     try {
                         room.find(FIND_MY_CREEPS, {filter: c=>c.memory.group != creep.memory.group}).forEach(c=> {
                             if (c.memory.role == 'quad') {
-                                roleQuad.setQuadCost(costs, c.pos.x, c.pos.y, 255, 2);    
+                                roleQuad.setQuadCost(costs, c.pos.x, c.pos.y, 255, 0);    
                             } else {
                                 roleQuad.setQuadCost(costs, c.pos.x, c.pos.y, 255, 0);    
                             }

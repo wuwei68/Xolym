@@ -88,6 +88,8 @@ module.exports = {
     },
     
     runProcess: function(room) {
+        if (room.controller && room.controller.level < 7) return;
+        if (room.memory.stopGclUprade === 0) return;
         this._init(room);
         if (!room.memory.tsrMineral || !room.memory.tsrMineral.containerPos) return;
         if (!room.memory.tsrMineral.mineral) return;

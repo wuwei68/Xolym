@@ -65,7 +65,7 @@ module.exports = {
         'shard1': 1,
     },
     maxBucketHarvesterSpawn: 8000,
-    mrShardOff: ['shard3','shard1'],
+    mrShardOff: ['shard3_','shard1'],
     mineralShardOff: ['shard3','shard1'],
     init: function(room) {
         // delete room.memory.tsrInfo;
